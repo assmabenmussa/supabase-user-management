@@ -64,44 +64,46 @@ export default function Account({ session }) {
 
   return (
     <div className="flex flex-col p-5">
-      <h2>Hi, {username}</h2>
-      <div className="flex flex-col">
-        <label htmlFor="email">Email</label>
-        <input className="text-black" id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="username">Name</label>
-        <input
-        className="text-black"
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="website">Website</label>
-        <input
-        className="text-black"
-          id="website"
-          type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
+      <h1 className="text-4xl mb-3">Hi, {username}</h1>
+      <div className="border-solid border-white border-2 rounded-3xl p-6">
+        <div className="flex flex-col my-2">
+          <label htmlFor="email">Email</label>
+          <input className="text-black" id="email" type="text" value={session.user.email} disabled />
+        </div>
+        <div className="flex flex-col my-2">
+          <label htmlFor="username">Name</label>
+          <input
+          className="text-black"
+            id="username"
+            type="text"
+            value={username || ''}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col my-2">
+          <label htmlFor="website">Website</label>
+          <input
+          className="text-black"
+            id="website"
+            type="website"
+            value={website || ''}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-center">
+          <button
+            className="button p-2 mt-4 rounded-md mx-2 bg-green-600 block primary"
+            onClick={() => updateProfile({ username, website })}
+            disabled={loading}
+          >
+            {loading ? 'Loading...' : 'Update'}
+          </button>
+          <button className="button bg-white mt-4 rounded-md mx-2 p-2 text-black" onClick={() => supabase.auth.signOut()}>
+            Sign Out
+          </button>
+        </div>
       </div>
 
-      <div className="flex">
-        <button
-          className="button p-2 mt-4 bg-green-600 block primary"
-          onClick={() => updateProfile({ username, website })}
-          disabled={loading}
-        >
-          {loading ? 'Loading...' : 'Update'}
-        </button>
-        <button className="button bg-white mt-4 p-2 text-black" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
-      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient.js'
+import "./Auth.css";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
@@ -20,12 +21,13 @@ export default function Auth() {
   }
 
   return (
-    <div className="row flex">
-      <div className="p-3">
-        <p className="description">Sign in via only email cuz we're cool like that</p>
+    <div className="h-screen flex justify-center bg-image">
+      <div className="self-center h-2/5 bg-green-500 glassmorphism p-6">
+        <h1 className="text-3xl">Supabase React App</h1>
+        <p className="description">Sign in via only email!</p>
         <div>
           <input
-            className="my-3 rounded-md text-black	"
+            className="my-3 rounded-sm text-black	w-full"
             type="email"
             placeholder="Your email"
             value={email}
@@ -38,10 +40,10 @@ export default function Auth() {
               e.preventDefault()
               handleLogin(email)
             }}
-            className={'button block'}
+            className={'button block w-full'}
             disabled={loading}
           >
-            {loading ? <button className="bg-green-500 rounded-md p-2">Loading</button> : <button className="bg-green-500 rounded-md p-2">Send magic link to ma butt</button>}
+            <button className="bg-green-500 rounded-md p-2 w-full">{loading ? "Loading" : "Send Email"}</button>
           </button>
         </div>
       </div>
