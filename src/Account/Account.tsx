@@ -1,10 +1,11 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 
-export default function Account({ session }) {
+export default function Account({ session }: any) {
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
+  const [username, setUsername] = useState("")
+  const [website, setWebsite] = useState("")
 
   useEffect(() => {
     getProfile()
@@ -13,7 +14,7 @@ export default function Account({ session }) {
   async function getProfile() {
     try {
       setLoading(true)
-      const user = supabase.auth.user()
+      const user: any = supabase.auth.user()
 
       let { data, error, status } = await supabase
         .from('profiles')
@@ -36,16 +37,18 @@ export default function Account({ session }) {
     }
   }
 
-  async function updateProfile({ username, website }) {
+  async function updateProfile({ username, website }: any) {
     try {
       setLoading(true)
-      const user = supabase.auth.user()
-
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        updated_at: new Date(),
+      const user = supabase.auth.user();
+      let updates: any;
+      if (user !== null) {
+        updates = {
+          id: user.id ?? "",
+          username,
+          website,
+          updated_at: new Date(),
+        }
       }
 
       let { error } = await supabase.from('profiles').upsert(updates, {
@@ -68,7 +71,7 @@ export default function Account({ session }) {
       <div className="border-solid border-white border-2 rounded-3xl p-6">
         <div className="flex flex-col my-2">
           <label htmlFor="email">Email</label>
-          <input className="text-black" id="email" type="text" value={session.user.email} disabled />
+          <input className="text-black" id="email" type="text" value={session?.user?.email} disabled />
         </div>
         <div className="flex flex-col my-2">
           <label htmlFor="username">Name</label>

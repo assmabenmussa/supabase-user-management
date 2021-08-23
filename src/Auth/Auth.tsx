@@ -1,14 +1,16 @@
+import React from 'react';
 import { useState } from 'react'
-import { supabase } from '../supabaseClient.js'
+import { supabase } from '../supabaseClient'
 import "./Auth.css";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
 
-  const handleLogin = async (email) => {
+  const handleLogin = async (email: string) => {
     try {
       setLoading(true)
+      console.log(await supabase.auth.signIn({ email }))
       const { user, session, error } = await supabase.auth.signIn({ email });
       console.log("user, ", user);
       if (error) throw error
