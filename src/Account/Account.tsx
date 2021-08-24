@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { User } from '../Interfaces/User'
 import { supabase } from '../supabaseClient'
 
 export default function Account({ session }: any) {
@@ -11,10 +12,10 @@ export default function Account({ session }: any) {
     getProfile()
   }, [session])
 
-  async function getProfile() {
+  const getProfile = async () => {
     try {
       setLoading(true)
-      const user: any = supabase.auth.user()
+      const user: User | any = supabase.auth.user()
 
       let { data, error, status } = await supabase
         .from('profiles')
@@ -37,7 +38,7 @@ export default function Account({ session }: any) {
     }
   }
 
-  async function updateProfile({ username, website }: any) {
+  const updateProfile = async ({ username, website }: User) => {
     try {
       setLoading(true)
       const user = supabase.auth.user();
